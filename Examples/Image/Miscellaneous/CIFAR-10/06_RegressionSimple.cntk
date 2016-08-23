@@ -47,7 +47,7 @@ TrainConvNet = {
     SGD = {
         epochSize = 0
 
-        maxEpochs = 4
+        maxEpochs = 2
         minibatchSize = 128
         learningRatesPerSample = 0.0005
         momentumAsTimeConstant = 1024
