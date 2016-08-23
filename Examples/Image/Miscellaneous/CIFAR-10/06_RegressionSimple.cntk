@@ -105,3 +105,32 @@ Write = {
         })
     }
 }
+
+# Write action
+Test = {
+    action = "test"
+    minibatchSize = 512
+    outputNodeNames = (ol, regrLabels, rmse)
+    outputPath = "$OutputDir$/06_RegressionSimple"
+    
+    reader = {
+        verbosity = 0 ; randomize = false
+        deserializers = ({
+            type = "ImageDeserializer" ; module = "ImageReader"
+            file = "$dataDir$/cifar-10-batches-py/test_map.txt"
+            input = {
+                features = { transforms = (
+                    { type = "Scale" ; width = 32 ; height = 32 ; channels = 3 ; interpolations = "linear" } :
+                    { type = "Transpose" }
+                )}
+                ignored = { labelDim = 10 }
+            }
+        } : {
+            type = "CNTKTextFormatDeserializer" ; module = "CNTKTextFormatReader"
+            file = "$dataDir$/cifar-10-batches-py/test_regrLabels.txt"
+            input = {
+                regrLabels = { dim = 3 ; format = "dense" }
+            }
+        })
+    }
+}
